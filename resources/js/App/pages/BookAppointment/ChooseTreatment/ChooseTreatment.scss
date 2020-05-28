@@ -1,0 +1,17 @@
+.choose-treatment-container {
+  height: 100%;
+  margin: 0 16px;
+}
+
+.choose-treatment-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  font-family: 'Audrey';
+}
+
+.treatments {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}

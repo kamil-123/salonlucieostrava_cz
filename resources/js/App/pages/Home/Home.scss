@@ -1,0 +1,113 @@
+@font-face {
+  font-family: 'Audrey';
+  src: local('Audrey'), url(../../fonts/Audrey/Audrey-Medium.otf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto'), url(../../fonts/Roboto/Roboto-Thin.ttf) format('truetype');
+}
+
+
+.mainPage {
+  background-image: url('../../images/backgroundPhoto1.jpg');
+  margin-top: -64px;
+  height: 85.56vh;
+  width: 100vw;  
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 60% 50%;
+  box-sizing: border-box;
+  padding: 1rem;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    
+  
+  }
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    
+  }
+}
+
+.mainTitle1, .mainTitle2 {
+  font-family: 'Audrey';
+  font-size: 79px;
+  color: white;
+      
+}
+
+.mainTitle1 {
+  margin-bottom: -1.5rem;
+  margin-top: 12rem;
+}
+
+.mainSubtitle {
+  font-family: 'Roboto';
+  font-size: 2em;
+  color: white;
+}
+
+.buttonBook1, .buttonAbout {
+  width: 240px;
+  font-size: 24px;
+  font-family: 'Audrey';
+  color: white;
+  text-align: center;
+  padding: 8px 16px;
+}
+
+.buttonBook1 {
+  background-color:#E6A779;
+  opacity: 85%;
+  margin-bottom: 8px;
+}
+
+.buttonAbout {
+  border: 2px solid #E6A779;
+}
+
+.mainActions {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+}
+
+.aboutSection {
+  font-family: 'Audrey';
+  position: relative;
+  margin: 24px 0;
+  text-align: center;
+  
+  
+}
+
+.aboutSection h1 {
+ 
+  border-bottom: 1px solid #E6A779;
+  
+}
+
+.aboutSection h4 {
+  padding-bottom: 20px;
+}
+
+  
+.buttonBook2 {
+  background-color:#E6A779;
+  font-family: 'Audrey';
+  font-size: 24px;
+  color: white;
+  padding: 16px 32px 12px;
+  margin: 40px 0px;
+
+
+  
+ 
+  
+
+} 

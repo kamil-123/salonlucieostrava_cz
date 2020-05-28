@@ -1,0 +1,60 @@
+.calendar {
+    height: 100%;
+    margin: 0 16px;
+}
+  
+.calendar-title {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Audrey';
+}
+
+.calendar-datepicker,
+.calendar-timepicker {
+    width: 100%;
+    margin-bottom: 16px;
+    box-shadow: 0px 0px 4px 1px #E6A779 ;
+}
+
+.calendar-datepicker th,
+.calendar-timepicker th,
+.calendar-datepicker td,
+.calendar-timepicker td {
+    text-align: center;
+}
+
+.calendar-datepicker tbody span,
+.calendar-timepicker tbody span,
+.calendar-datepicker th,
+.calendar-timepicker th {
+    padding: 4px;
+}
+
+.calendar-datepicker thead th {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #E6A779;
+}
+
+.calendar-datepicker tbody span.active,
+.calendar-timepicker tbody span.active {
+    background-color: #E6A779;
+    color: white;
+}
+
+.calendar-datepicker tbody span.active {
+    border-radius: 50%;
+}
+
+.calendar-timepicker tbody tr td,
+.calendar-datepicker tbody tr td {
+    padding-top: 8px;
+}
+
+.calendar-timepicker span.available {
+    color: black;
+}
+
+.calendar-timepicker span.unavailable {
+    color: rgba(0,0,0,.3);
+}

@@ -1,0 +1,116 @@
+.header {
+  width: 100vw;
+  height: 64px;
+  z-index: 10;
+}
+
+.logo {
+  color: black;
+  font-family: 'Audrey';
+  font-size: 1.5rem;
+}
+
+.header-content {
+  padding: 0 16px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.hamburger {
+  width: 40px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+.hamb1, .hamb2, .hamb3 {
+  height: 3px;
+  background-color: #E6A779;
+  flex-direction: row-reverse;
+  margin: 2px;
+  align-self: flex-end;
+}
+
+.hamb1 {
+  width: 100%;
+}
+
+.hamb2{
+  width: 70%;
+}
+
+.hamb3{
+  width: 40%;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.sidebar.active {
+  pointer-events: all;
+}
+
+.sidebar-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  
+  transition: background-color 240ms linear;
+  will-change: background-color;
+
+}
+
+.sidebar.active .sidebar-overlay {
+  background-color: rgba(0, 0, 0, .69);
+}
+
+.sidebar-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 256px;
+  background-color: white;
+  opacity: 85%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transform: translateX(256px);
+  transition: transform .2s linear;
+  will-change: transform;
+  z-index: 2;
+  text-align: center;
+  
+  font-size: 22px;
+}
+
+.sidebar.active .sidebar-content {
+  transform: translateX(0px);
+}
+
+.sidebar-content-flex {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 5px;
+}
+
+.sidebar-content-flex a {
+  padding: 15px 5px;
+  border-bottom: 3px solid whitesmoke;
+  font-family: 'audrey';
+  
+  
+}

@@ -1,0 +1,28 @@
+.customer-info-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.customer-info-title {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Audrey';
+  padding-left: 16px;
+}
+
+.customer-info {
+  font-size: 16px;
+  font-family: 'audrey';
+}
+
+.customer-info-container input {
+  width: 70vw;
+  padding: 8px 16px;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 16px;
+  border: none;
+  outline: none;
+}

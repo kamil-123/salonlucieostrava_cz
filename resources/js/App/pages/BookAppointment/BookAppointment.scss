@@ -1,0 +1,52 @@
+.book-appointment-title {
+  font-family: 'Audrey';
+  font-size: 32px;
+  font-weight: bold;
+  padding: 0 16px;
+  color: #E6A779;
+}
+
+.button {
+  flex: 1;
+  border: 1.5px solid #E6A779;
+  padding: 4px 8px;
+  margin: 8px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 16px;
+  font-family: 'RobotoBlack';
+}
+
+.button.button-primary {
+  background-color: #E6A779;
+  color: white;
+}
+
+.button.button-secondary {
+  background-color: white;
+  color: #E6A779;
+}
+
+.button:disabled {
+  opacity: 0.5;
+}
+
+.buttons-container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin: 8px;
+}
+
+.bottom-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.bottom-container h3 {
+  font-size: 16px;
+  font-family: 'roboto';
+  margin-bottom: -8px;
+}
+

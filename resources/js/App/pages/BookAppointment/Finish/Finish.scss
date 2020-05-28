@@ -1,0 +1,43 @@
+.finish-container {
+  text-align: center;
+  font-family: 'roboto';
+}
+
+.details-container {
+  text-align: left;
+  margin-left: 16px;
+}
+
+.finish1 {
+  font-weight: bold;
+  margin: 24px 0px 16px;
+  font-family: 'audrey';
+}
+
+.button-appointment {
+  background-color: #E6A779;
+  color: white;
+  flex: 1;
+  border: 1.5px solid #E6A779;
+  padding: 4px 8px;
+  margin: 32px 8px 2px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 16px;
+  font-family: "RobotoBlack";
+  width: 343px;
+}
+
+.greeting {
+  font-family: 'audrey';
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+.details {
+  font-family: 'AudreyMedium';
+}
+
+.details1 {
+  font-family: 'roboto';
+}

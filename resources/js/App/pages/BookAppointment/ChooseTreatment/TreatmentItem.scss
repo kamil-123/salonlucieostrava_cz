@@ -1,0 +1,26 @@
+.treatment-item {
+  border: 1px solid #E6A779;
+  height: 160px;
+  transition: background-color .1s linear;
+  margin: 4px;
+  font-family: 'audrey';
+  font-weight: lighter;
+  flex-basis: calc(50% - 8px);
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.treatment-item:hover,
+.treatment-item.active {
+  background-color: #E6A779;
+  color: white;
+}
+
+.empty-treatment-item {
+  height: 160px;
+  margin: 4px;
+  flex-basis: calc(50% - 8px);
+}
