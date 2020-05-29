@@ -92,6 +92,7 @@ if (!mix.inProduction()) {
 mix.react('resources/js/app.js', 'public/js')
 
     .sass('resources/sass/app.scss', 'public/css')
+    .sass('resources/sass/mainapp.scss', 'public/css')
 
     .js('resources/js/appl.js', 'public/js')
 

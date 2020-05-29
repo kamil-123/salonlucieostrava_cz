@@ -20,9 +20,13 @@ Route::get('/react/{path?}', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/',function(){
-    return redirect('/react/home');
-});
+// Route::get('/',function(){
+//     return redirect('/react/home');
+// });
+
+//Routes mainpage 
+Route::get('/', 'MainController@mainPage')->name('mainPage');
+Route::get('/saloon', 'MainController@saloon')->name('saloon');
 
 // Routes Calendar 
 Route::get('/home/calendar/{month?}', 'CalendarViewController@show')->name('calendar');
