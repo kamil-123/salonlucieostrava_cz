@@ -44,6 +44,15 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('saloon')}}#services">{{ __('Služby') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('saloon')}}#findmehere">{{ __('Kde jsme') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('saloon')}}#contact">{{ __('Kontakt') }}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
@@ -89,6 +98,10 @@
             @yield('content')
         </main>
     </div>
-
+    <footer id="sticky-footer" class="py-2 bg-dark text-white-50">
+        <div class="container text-center">
+          <small>&copy; Created by <a href="http://www.drozd.run" target="_blank">Kamil Drozd</a> {{date('Y')}}</small>
+        </div>
+    </footer>
 </body>
 </html>

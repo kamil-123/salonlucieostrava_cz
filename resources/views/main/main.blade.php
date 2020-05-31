@@ -15,7 +15,7 @@
         <h3 class="linename__name">Kadeřnictví v Ostravě</h3>
         <div class="linename__line"></div>
       </div>  
-      <a class="mainbutton mainbutton--order" href="#">OBJEDNAT</a>
+      <a class="mainbutton mainbutton--order" href="{{ route('saloon') }}#services">OBJEDNAT</a>
       <a class="mainbutton mainbutton--enter" href="{{ route('saloon') }}">VSTOUPIT</a>
     </div>
   </div>
