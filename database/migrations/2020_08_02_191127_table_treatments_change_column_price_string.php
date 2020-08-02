@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddActiveColumnToStylistsTable extends Migration
+class TableTreatmentsChangeColumnPriceString extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddActiveColumnToStylistsTable extends Migration
      */
     public function up()
     {
-        Schema::table('stylists', function (Blueprint $table) {
-            $table->boolean('active')->after('user_id')->default(0);
+        Schema::table('treatments',  static function(Blueprint $table)
+        {
+            $table->string('price')->change();
         });
     }
 
@@ -25,8 +26,9 @@ class AddActiveColumnToStylistsTable extends Migration
      */
     public function down()
     {
-        Schema::table('stylists', function (Blueprint $table) {
-            $table->dropColumn('active');
-        });
+         Schema::table('treatments', function (Blueprint $table)
+         {
+             $table->integer('price')->default(100)->change();
+         });
     }
 }
