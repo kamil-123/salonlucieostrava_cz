@@ -23,7 +23,7 @@ main{
 }
 
 .saloonPage{
-  background-image: url('../images/SZ6_2057.jpg');
+  background-image: url('../images/SZ6_2038a.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -38,7 +38,7 @@ main{
     content: '';
     width: 80%;
     height: 90vh;
-    background-color: rgba(black, 0.4);
+    background-color: rgba(black, 0.2);
     // border-radius: 1em;
     position: absolute;
     // top: 0;
@@ -93,7 +93,7 @@ main{
         color: white;
         border: 3px solid white;
       }
-      
+
     }
   }
 }
@@ -127,11 +127,11 @@ main{
     .treatmentbox{
       width: 60%;
       .trname{
-        width: 50%;
+        width: 45%;
         padding-left: 1em;
       }
       .trprice{
-        width: 10%;
+        width: 15%;
         text-align: right;
       }
       .orderbutton{
@@ -147,7 +147,7 @@ main{
       margin-top: 0.3;
       background-color: darkgrey;
       color: white;
-      border: 3px solid black;          
+      border: 3px solid black;
       }
     }
   }

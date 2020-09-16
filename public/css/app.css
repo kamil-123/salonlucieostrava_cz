@@ -10006,7 +10006,7 @@ main {
 }
 
 .saloonPage {
-  background-image: url("../images/SZ6_2057.jpg");
+  background-image: url("../images/SZ6_2038a.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -10021,7 +10021,7 @@ main {
   content: "";
   width: 80%;
   height: 90vh;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   z-index: 1;
 }
@@ -10107,11 +10107,11 @@ main {
   width: 60%;
 }
 .services .stylisttreatment .treatmentbox .trname {
-  width: 50%;
+  width: 45%;
   padding-left: 1em;
 }
 .services .stylisttreatment .treatmentbox .trprice {
-  width: 10%;
+  width: 15%;
   text-align: right;
 }
 .services .stylisttreatment .treatmentbox .orderbutton {
