@@ -16,7 +16,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <!-- Styles -->
     {{-- <link href="{{ asset('sass/app.css') }}" rel="stylesheet" type="text/css"> --}}
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}" type="text/css">
@@ -64,12 +64,12 @@
                             @can('admin')
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ action('StylistController@index') }}">{{ __('Stylists') }}</a>
-                                </li>    
+                                </li>
                             @endcan
                             @if (Auth::user()->stylist !== null)
                                     <a class="nav-link" href="{{ route('treatmentindex') }}">{{ __('Treatments') }}</a>
                                     <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
-            
+
                             @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -103,5 +103,8 @@
           <small>&copy; Created by <a href="http://www.drozd.run" target="_blank">Kamil Drozd</a> {{date('Y')}}</small>
         </div>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
 </html>

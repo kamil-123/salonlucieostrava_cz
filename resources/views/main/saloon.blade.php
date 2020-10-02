@@ -7,21 +7,30 @@
         <div class="linename__line"></div>
         <h3 class="linename__name">Lucie Baránková</h3>
         <div class="linename__line"></div>
-      </div>  
-      
+      </div>
+
       <h2 class="salonname">SALÓN LUCIE</h2>
       <div class="linename">
         <div class="linename__line"></div>
         <h3 class="linename__name">Kadeřnictví v Ostravě</h3>
         <div class="linename__line"></div>
-      </div>  
+      </div>
       <a class="mainbutton mainbutton--order" href="{{ route('saloon')}}#services">OBJEDNAT</a>
-      
+
     </div>
   </div>
   <div class="services" id="services">
     <h1>Služby a ceník</h1>
-    @foreach ($stylists as $stylist)
+      @if (count($errors) > 0)
+          <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+      @endif
+      @foreach ($stylists as $stylist)
       <div class="stylisttreatment">
         <div class="stylistbox">
           <img src="{{ asset('/images/stylists/') }}/{{$stylist->profile_photo_url}}" alt="Photo {{ $stylist->user->first_name .' '. $stylist->user->last_name }}" class="stylistbox__image">
@@ -31,26 +40,26 @@
           </p>
         </div>
         <div class="treatmentbox">
-          <form action="" method="POST">
+          <form action="{{ action('MainController@showSchedule') }}" method="POST">
             @foreach ($stylist->treatments as $treatment)
-              <input type="radio" name="treatment" id="{{$treatment->id}}"  value="{{$treatment->id}}" {{$stylist->active === 1 ? '' : 'disabled'}}>
+              <input type="radio" name="treatment_id" id="{{$treatment->id}}"  value="{{$treatment->id}}" {{$stylist->active === 1 ? '' : 'disabled'}}>
               <label for="{{$treatment->id}}" class="trname">{{$treatment->name}}</label>
               <label for="{{$treatment->id}}" class="trprice">{{$treatment->price}} Kč</label>
-              <br>    
+              <br>
             @endforeach
             @if ($stylist->active === 1)
               @csrf
-              <input type="hidden" name="stylist" value="{{ $stylist->id }}">
-              <input type="submit" class="orderbutton" value="OBJEDNAT">    
+              <input type="hidden" name="stylist_id" value="{{ $stylist->id }}">
+              <input type="submit" class="orderbutton" value="OBJEDNAT">
             @else
               <strong>Bohužel, není možné se objednat.</strong>
             @endif
-              
+
           </form>
         </div>
-      </div>    
+      </div>
     @endforeach
-    
+
   </div>
   <div class="findmehere" id="findmehere">
     <h1>Kde nás najdete?</h1>
@@ -60,19 +69,19 @@
     <h1>Kontakt</h1>
     @foreach ($stylists as $stylist)
       @if ($stylist->user->role === 1)
-        <img src="{{ asset('/images/stylists/') }}/{{$stylist->profile_photo_url}}" alt="Photo {{ $stylist->user->first_name .' '. $stylist->user->last_name }}" class="contact__image">  
-        <p> 
+        <img src="{{ asset('/images/stylists/') }}/{{$stylist->profile_photo_url}}" alt="Photo {{ $stylist->user->first_name .' '. $stylist->user->last_name }}" class="contact__image">
+        <p>
           <strong>Majitelka</strong><br>
           <strong>{{ $stylist->user->first_name .' '. $stylist->user->last_name }}</strong><br>
           {{ $stylist->user->phone }}<br>
           {{ $stylist->user->email }}
-        </p>  
+        </p>
       @endif
-        
-    @endforeach
-  </div>  
-  
 
-  
+    @endforeach
+  </div>
+
+
+
 
 @endsection

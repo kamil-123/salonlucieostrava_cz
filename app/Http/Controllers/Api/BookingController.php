@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Treatment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Booking;
 use App\Stylist;
 use App\Customer;
-  
-  
+
+
 class BookingController extends Controller
 {
 
@@ -29,9 +30,9 @@ class BookingController extends Controller
         '15:30:00' => null,
         '16:00:00' => null,
         '16:30:00' => null,
-        
+
       ];
-      private $timeSlotTemplateWeekEnd = [
+    private $timeSlotTemplateWeekEnd = [
         '09:00:00' => 0,
         '09:30:00' => 0,
         '10:00:00' => 0,
@@ -48,64 +49,103 @@ class BookingController extends Controller
         '15:30:00' => 0,
         '16:00:00' => 0,
         '16:30:00' => 0,
-        
-      ];
+    ];
+
+    /**
+     * @param $mesic
+     *
+     * @return string
+     */
+    private function cesky_mesic($mesic): string
+    {
+        static $nazvy = array(1 => 'Led', 'Ún', 'Bře', 'Dub', 'Kvě', 'Čvn', 'Čvc', 'Srp', 'Zář', 'Říj', 'Lis', 'Pro');
+        return $nazvy[$mesic];
+    }
+
+    /**
+     * @param $den
+     *
+     * @return string
+     */
+    private function cesky_den($den): string
+    {
+        static $nazvy = array(1 => 'Po', 'Út', 'St', 'Čt', 'Pá', 'So','Ne');
+        return $nazvy[$den];
+    }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     *
+     * @return array
      */
     public function index(Request $request)
     {
         $today = date("Y-m-d H:i:s");
         $tenDaysLater = date('Y-m-d H:i:s', strtotime($today. ' + 14 days'));
-        
-        if ($request->input('stylist_id')!==null){
+
+        if ($request->input('stylist_id') !== null && $request->input('treatment_id') !== null ){
             $stylist_id = $request->input('stylist_id');
             $stylist = Stylist::findOrFail($stylist_id);
             $bookings = Booking::orderBy('start_at', 'asc')->with('treatment')
             ->where('start_at' , '>=', $today) // fetch only future schedule
             ->where('start_at' , '<=', $tenDaysLater) // fetch schedule only within 14 days in future
             ->where('stylist_id', $stylist_id) //only the requested stylist_id
-            ->get();   
-            
+            ->get();
+
             $scheduleTemplate = [];
             for($i = 1; $i <= 14 ; $i++){
                 $day = date("Y-m-d", strtotime($today . ' + ' . $i . ' days'));
                 $dayNr = date('N',strtotime($day));
+                $monthNr = date('n', strtotime($day));
+                $dayname = $this->cesky_den($dayNr).', '.$this->cesky_mesic($monthNr).' '.date('d', strtotime($day));
                 if($dayNr == 6 || $dayNr == 7){
-                    $scheduleTemplate[$day] = $this->timeSlotTemplateWeekEnd;
+                    $scheduleTemplate[$day] = ['name' => $dayname, 'time' => $this->timeSlotTemplateWeekEnd];
                 } else {
-                    $scheduleTemplate[$day] = $this->timeSlotTemplate;
+                    $scheduleTemplate[$day] = ['name' => $dayname, 'time' => $this->timeSlotTemplate];
                 }
             }
-            
+
             foreach($bookings as $booking){
                 $date_time = explode(" ",$booking['start_at']);
                 $date = $date_time[0];
                 $time = $date_time[1];
-                
+
                 if($booking->treatment !== null){
                     $duration = $booking->treatment->duration;
                     $slots = ((strtotime($booking['start_at'].' + '.substr($duration,0,2).'hours '.substr($duration,3,2).' minutes' ))-strtotime($booking['start_at']))/(60*30);
                     for($i = 1; $i<=$slots; $i++){
                         if (array_key_exists($date, $scheduleTemplate)){
-                            if (array_key_exists($time,$scheduleTemplate[$date])){
-                                $scheduleTemplate[$date][$time] = $booking->availability;
+                            if (array_key_exists($time,$scheduleTemplate[$date]['time'])){
+                                $scheduleTemplate[$date]['time'][$time] = $booking->availability;
                                 $time = date("H:i:s",strtotime($time . '+ 30 minutes'));
                             }
-                        }    
+                        }
                     }
-
-
                 } else{
                     if (array_key_exists($date, $scheduleTemplate)){
-                        if (array_key_exists($time,$scheduleTemplate[$date])){
-                            $scheduleTemplate[$date][$time] = $booking->availability;
+                        if (array_key_exists($time,$scheduleTemplate[$date]['time'])){
+                            $scheduleTemplate[$date]['time'][$time] = $booking->availability;
                         }
                     }
                 }
+            }
+            $treatment = Treatment::findOrFail($request->input('treatment_id'));
+            $duration = $treatment->duration;
+            $slots = (int)(substr($duration,0,2)) * 2 + (int)(substr($duration,3,2)) / 30;
+            foreach ($scheduleTemplate as $template) {
+                $keys = array_keys($template['time']);
+                for ($i = 0, $iMax = count($keys); $i < $iMax; ++$i) {
+                    for ($j = 0; $j < $slots; ++$j) {
+                        if ($template['time'][$keys[$i+$j]] === null) {
+                            continue;
+                        } else {
+                            $template['time'][$keys[$i]] = 1;
+                        }
+                    }
+                }
+
             }
 
 
@@ -115,7 +155,7 @@ class BookingController extends Controller
         $bookings = Booking::orderBy('start_at', 'asc')
                         ->where('start_at' , '>=', $today) // fetch only future schedule
                         ->where('start_at' , '<=', $tenDaysLater) // fetch schedule only within 14 days in future
-                        ->get();     
+                        ->get();
 
         // formatting the fetched data
         $schedule = [];
@@ -124,23 +164,23 @@ class BookingController extends Controller
             $date_time = explode(" ", $booking['start_at']);
             $date = $date_time[0];
             $time = $date_time[1];
-            
+
             if (array_key_exists($stylist_id, $schedule)) {
                 if (array_key_exists($date, $schedule[$stylist_id])) {
                     $schedule[$stylist_id][$date][$time] = $booking->availability;
                 } else {
-                    $schedule[$stylist_id][$date] = [$time => $booking->availability]; 
+                    $schedule[$stylist_id][$date] = [$time => $booking->availability];
                 }
             } else {
                 $schedule[$stylist_id] = [$date => [$time => $booking->availability]];
             }
         }
-        
+
         // REFERENCE - $schedule looks like:
-        //  [ stylist_id_1 => [date_1 => [time_1 => availability, time_2 => availability], 
+        //  [ stylist_id_1 => [date_1 => [time_1 => availability, time_2 => availability],
         //                     date_2 => [time_3..]],
         //    stylist_id_2 => [date_1 => [time_4 => availability],
-        //                     date_2 => [...]], 
+        //                     date_2 => [...]],
         //  ]
 
         // combine fetched data and the template
@@ -149,7 +189,7 @@ class BookingController extends Controller
             foreach ($dates as $date => $timeSlots) {
                 $full_day_schedule = array_merge($this->timeSlotTemplate, $timeSlots);
                 $full_schedule[$stylist][$date] = $full_day_schedule;
-            }; 
+            };
         };
 
         return $full_schedule;
@@ -174,21 +214,21 @@ class BookingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         //store customer information from request
         $customer = Customer::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'phone' => $request->input('phone_number'),
             'email' => $request->input('email'),
-        ]);       
-        
+        ]);
+
         //transform start_at
         $start_at = $request->input('start_at');
         $date = substr($start_at,0,10);
         $time = substr($start_at,11,8);
         $start_at_transformed = $date . ' ' . $time;
-        
+
         //store booking information from request
         $booking = Booking::create([
             'customer_id' => $customer->id,

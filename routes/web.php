@@ -24,11 +24,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 //     return redirect('/react/home');
 // });
 
-//Routes mainpage 
+//Routes mainpage
 Route::get('/', 'MainController@mainPage')->name('mainPage');
 Route::get('/saloon', 'MainController@saloon')->name('saloon');
+Route::post('/schedule', 'MainController@showSchedule')->name('showSchedule');
 
-// Routes Calendar 
+// Routes Calendar
 Route::get('/home/calendar/{month?}', 'CalendarViewController@show')->name('calendar');
 
 // Routes Booking
