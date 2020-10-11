@@ -54,7 +54,7 @@ class MainController extends Controller
      */
     private function cesky_mesic($mesic): string
     {
-        static $nazvy = array(1 => 'Led', 'Ún', 'Bře', 'Dub', 'Kvě', 'Čvn', 'Čvc', 'Srp', 'Zář', 'Říj', 'Lis', 'Pro');
+        static $nazvy = array(1 => 'Led', 'Úno', 'Bře', 'Dub', 'Kvě', 'Čvn', 'Čvc', 'Srp', 'Zář', 'Říj', 'Lis', 'Pro');
         return $nazvy[$mesic];
     }
 
@@ -95,6 +95,7 @@ class MainController extends Controller
         $tenDaysLater = date('Y-m-d H:i:s', strtotime($today . ' + 14 days'));
 
         $stylist_id = $request->input('stylist_id');
+        $stylist = Stylist::findOrFail($stylist_id);
         $bookings = Booking::orderBy('start_at', 'asc')->with('treatment')
             ->where('start_at', '>=', $today) // fetch only future schedule
             ->where('start_at', '<=', $tenDaysLater) // fetch schedule only within 14 days in future
@@ -160,6 +161,6 @@ class MainController extends Controller
             $resultScheduleTemplate[$key] = $template;
         }
 
-        return view('main/schedule', compact('resultScheduleTemplate'));
+        return view('main/schedule', compact('resultScheduleTemplate', 'treatment', 'stylist'));
     }
 }

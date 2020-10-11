@@ -10158,4 +10158,99 @@ main {
 .contact p {
   text-align: center;
 }
+
+.schedulePage {
+  background-image: url("../images/SZ6_2057.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 80%;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.schedulePage:after {
+  content: "";
+  width: 80%;
+  height: 90vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  z-index: 1;
+}
+.schedulePage .mainbox {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  z-index: 2;
+}
+.schedulePage .mainbox .linename {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.schedulePage .mainbox .linename__line {
+  flex-grow: 1;
+  background-color: white;
+  height: 4px;
+}
+.schedulePage .mainbox .linename__name {
+  color: white;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+.schedulePage .mainbox .salonname {
+  font-size: 50px;
+  font-weight: 600;
+  color: white;
+  align-self: center;
+}
+
+.schedule {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 3em;
+}
+.schedule .scheduleform {
+  width: 100%;
+}
+.schedule .scheduleform .schedule-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.schedule .scheduleform .schedule-wrap .schedule-day {
+  display: flex;
+  flex-direction: column;
+  width: 9%;
+  align-items: center;
+}
+.schedule .scheduleform .schedule-wrap .schedule-day__name {
+  background-color: lightblue;
+  width: 80%;
+  text-align: center;
+  padding: 0.1em 0 0.1em 0;
+  border-radius: 4px;
+}
+.schedule .scheduleform .schedule-wrap .schedule-day__time {
+  width: 80%;
+  background-color: lightgrey;
+  text-align: center;
+  margin: 1px 0 1px 0;
+  padding: 0.1em 0 0.1em 0;
+  border-radius: 4px;
+}
+.schedule .scheduleform .schedule-wrap .schedule-day__time .label-disabled {
+  text-decoration: line-through;
+}
+.schedule .scheduleform .schedule-wrap .schedule-day--disabled {
+  background-color: darkgrey;
+}
 /*# sourceMappingURL=app.css.map*/
