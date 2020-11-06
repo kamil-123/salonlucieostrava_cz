@@ -40,7 +40,7 @@
           </p>
         </div>
         <div class="treatmentbox">
-          <form action="{{ action('MainController@showSchedule') }}" method="POST">
+          <form action="{{ action('MainController@postSaloon') }}" method="POST">
             @foreach ($stylist->treatments as $treatment)
               <input type="radio" name="treatment_id" id="{{$treatment->id}}"  value="{{$treatment->id}}" {{$stylist->active === 1 ? '' : 'disabled'}}>
               <label for="{{$treatment->id}}" class="trname">{{$treatment->name}}</label>

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +28,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Routes mainpage
 Route::get('/', 'MainController@mainPage')->name('mainPage');
 Route::get('/saloon', 'MainController@saloon')->name('saloon');
-Route::post('/schedule', 'MainController@showSchedule')->name('showSchedule');
+Route::post('/saloon', 'MainController@postSaloon')->name('postSaloon');
+Route::get('/schedule', 'MainController@showSchedule')->name('showSchedule');
+//Route::post('/schedule', 'MainController@showSchedule')->name('showSchedule');
+Route::post('/order', 'MainController@orderCreate')->name('orderCreate');
 
 // Routes Calendar
 Route::get('/home/calendar/{month?}', 'CalendarViewController@show')->name('calendar');

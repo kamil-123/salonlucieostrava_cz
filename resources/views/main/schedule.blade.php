@@ -14,8 +14,6 @@
                 <h3 class="linename__name">Kadeřnictví v Ostravě</h3>
                 <div class="linename__line"></div>
             </div>
-
-
         </div>
     </div>
     <div class="schedule" id="schedule">
@@ -30,7 +28,7 @@
                 </ul>
             </div>
         @endif
-        <form class="scheduleform" action="" method="POST">
+        <form class="scheduleform" action="{{ action('MainController@orderCreate') }}" method="POST">
             @csrf
             <div class="schedule-wrap">
             @foreach($resultScheduleTemplate as $date => $values)
@@ -40,19 +38,21 @@
                     </div>
                     @foreach ($values['time'] as $time => $availability)
                         <div class="schedule-day__time {{ $availability === null ? '' : 'schedule-day--disabled'}}">
-                            <input type="radio" name="selected_time" id="{{ $date.'_'.$time}}" value="{{ $date .' '. $time }}" {{ $availability === null ? '' : 'disabled'}}>
+                            <input type="radio" name="start_at" id="{{ $date.'_'.$time}}" value="{{ $date .' '. $time }}" {{ $availability === null ? '' : 'disabled'}}>
                             <label for="{{ $date.'_'.$time }}" class="{{ $availability === null ? '' : 'label-disabled'}}">{{ substr($time, 0, 5) }}</label>
                         </div>
                     @endforeach
                 </div>
             @endforeach
             </div>
-            <label for="name">Jméno a příjmení:</label>
-            <input type="text" id="name" name="name">
+            <label for="first_name">Jméno:</label>
+            <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}">
+            <label for="last_name">Příjmení:</label>
+            <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}">
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email">
+            <input type="text" id="email" name="email" value="{{ old('email') }}">
             <label for="phone">Telefon:</label>
-            <input type="text" id="phone" name="phone">
+            <input type="text" id="phone" name="phone" value="{{ old('phone') }}">
             <input type="submit" value="OBJEDNAT">
         </form>
 

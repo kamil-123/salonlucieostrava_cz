@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Booking;
+use App\Customer;
 use App\Stylist;
 use App\Treatment;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class MainController extends Controller
 {
@@ -54,7 +61,20 @@ class MainController extends Controller
      */
     private function cesky_mesic($mesic): string
     {
-        static $nazvy = array(1 => 'Led', 'Úno', 'Bře', 'Dub', 'Kvě', 'Čvn', 'Čvc', 'Srp', 'Zář', 'Říj', 'Lis', 'Pro');
+        static $nazvy = [
+            1 => 'Led',
+            2 => 'Úno',
+            3 => 'Bře',
+            4 => 'Dub',
+            5 => 'Kvě',
+            6 => 'Čvn',
+            7 => 'Čvc',
+            8 => 'Srp',
+            9 => 'Zář',
+            10 => 'Říj',
+            11 => 'Lis',
+            12 => 'Pro'
+        ];
         return $nazvy[$mesic];
     }
 
@@ -65,41 +85,86 @@ class MainController extends Controller
      */
     private function cesky_den($den): string
     {
-        static $nazvy = array(1 => 'Po', 'Út', 'St', 'Čt', 'Pá', 'So','Ne');
+        static $nazvy = [
+            1 => 'Po',
+            2 => 'Út',
+            3 => 'St',
+            4 => 'Čt',
+            5 => 'Pá',
+            6 => 'So',
+            7 => 'Ne'];
         return $nazvy[$den];
     }
 
+    /**
+     * @return Application|Factory|View
+     */
     public function mainPage()
     {
         return view('main/main');
     }
 
 
-   public function saloon()
+    /**
+     * @param Request $request
+     * @return Application|Factory|Response|View
+     */
+    public function saloon(Request $request)
     {
+        $newBooking = $request->session()->get('newBooking');
+
         $stylists = Stylist::orderBy('id', 'asc')
                         ->with('user')
                         ->with('treatments')
                         ->get();
-        return view('main/saloon', compact('stylists'));
+
+        return view('main/saloon', compact(['stylists', 'newBooking']));
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function postSaloon(Request $request): RedirectResponse
+    {
+        $validatedData = $request->validate([
+            'stylist_id' => 'required|integer',
+            'treatment_id' => 'required|integer',
+        ]);
+
+        if (empty($request->session()->get('newBooking'))) {
+           $newBooking = new Booking();
+           $newBooking->fill($validatedData);
+           $request->session()->put('newBooking', $newBooking);
+        } else {
+            $newBooking = $request->session()->get('newBooking');
+            $newBooking->fill($validatedData);
+            $request->session()->put('newBooking', $newBooking);
+        }
+
+        return redirect()->route('showSchedule');
+    }
+
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     */
     public function showSchedule(Request $request)
     {
-        $this->validate($request, [
-            'stylist_id' => 'required|integer',
-            'treatment_id' => 'required|integer'
-        ]);
+        /** @var Booking $newBooking */
+        $newBooking = $request->session()->get('newBooking');
+        $stylistId = $newBooking->stylist_id;
+        $treatmentId = $newBooking->treatment_id;
 
         $today = date("Y-m-d H:i:s");
         $tenDaysLater = date('Y-m-d H:i:s', strtotime($today . ' + 14 days'));
 
-        $stylist_id = $request->input('stylist_id');
-        $stylist = Stylist::findOrFail($stylist_id);
+
+        $stylist = Stylist::findOrFail($stylistId);
         $bookings = Booking::orderBy('start_at', 'asc')->with('treatment')
             ->where('start_at', '>=', $today) // fetch only future schedule
             ->where('start_at', '<=', $tenDaysLater) // fetch schedule only within 14 days in future
-            ->where('stylist_id', $stylist_id) //only the requested stylist_id
+            ->where('stylist_id', $stylistId) //only the requested stylist_id
             ->get();
 
         $scheduleTemplate = [];
@@ -139,7 +204,7 @@ class MainController extends Controller
                 }
             }
         }
-        $treatment = Treatment::findOrFail($request->input('treatment_id'));
+        $treatment = Treatment::findOrFail($treatmentId);
         $duration = $treatment->duration;
         $slots = (int)(substr($duration,0,2)) * 2 + (int)(substr($duration,3,2)) / 30;
         $resultScheduleTemplate = [];
@@ -161,6 +226,45 @@ class MainController extends Controller
             $resultScheduleTemplate[$key] = $template;
         }
 
-        return view('main/schedule', compact('resultScheduleTemplate', 'treatment', 'stylist'));
+        return view('main/schedule', compact([
+                    'resultScheduleTemplate',
+                    'newBooking',
+                    'treatment',
+                    'stylist',
+            ])
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
+    public function orderCreate(Request $request)
+    {
+        $this->validate($request, [
+            'start_at' => 'required|date_format:Y-m-d H:i:s',
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'email' => 'required|email',
+            'phone' => 'required|'
+        ]);
+
+        $customer = Customer::create([
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+        ]);
+
+        /** @var Booking $newBooking */
+        $newBooking = $request->session()->get('newBooking');
+        $newBooking->start_at = $request->input('start_at');
+        $newBooking->availability = 1;
+        $newBooking->save();
+
+        $request->session()->forget('newBooking');
+
+        return redirect()->route('saloon');
     }
 }
