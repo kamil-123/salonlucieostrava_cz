@@ -53,6 +53,7 @@ main{
     flex-direction: column;
     justify-items: center;
     z-index: 2;
+      margin-top: 30px;
     @media (max-width: $breakpoint-lg) {
         width: 50%;
     }
