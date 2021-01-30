@@ -70,7 +70,9 @@ Route::delete('/treatment', 'TreatmentController@remove' );
 //Routes Stylist
 Route::get('/stylist','StylistController@index')->middleware('can:admin');
 Route::get('/stylist/create', 'StylistController@create')->middleware('can:admin');
-route::post('/stylist', 'StylistController@store')->middleware('can:admin');
+Route::post('/stylist', 'StylistController@store')->middleware('can:admin');
 Route::get('/stylist/edit/{id}', 'StylistController@edit')->middleware('can:admin');
 Route::put('/stylist/update','StylistController@update')->middleware('can:admin');
 Route::delete('stylist', 'StylistController@remove')->middleware('can:admin');
+
+Route::get('/sitemap/sitemap.xml', 'SitemapController@sitemap')->name('sitemap');
