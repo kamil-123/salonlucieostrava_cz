@@ -33,7 +33,7 @@
       @foreach ($stylists as $stylist)
       <div class="stylisttreatment">
         <div class="stylistbox">
-          <img src="{{ asset('/images/stylists/') }}/{{$stylist->profile_photo_url}}" alt="Photo {{ $stylist->user->first_name .' '. $stylist->user->last_name }}" class="stylistbox__image">
+{{--          <img src="{{ asset('/images/stylists/') }}/{{$stylist->profile_photo_url}}" alt="Photo {{ $stylist->user->first_name .' '. $stylist->user->last_name }}" class="stylistbox__image">--}}
           <p> <strong>{{ $stylist->user->first_name .' '. $stylist->user->last_name }}</strong><br>
               {{-- {{ $stylist->job_title }} <br> --}}
               {{ $stylist->service }} <br>
@@ -52,7 +52,7 @@
               <input type="hidden" name="stylist_id" value="{{ $stylist->id }}">
               <input type="submit" class="orderbutton" value="OBJEDNAT">
             @else
-              <strong>Bohužel, není možné se objednat.</strong>
+              <strong>Online</strong> objednávání spustíme po covidu.
             @endif
 
           </form>
@@ -62,14 +62,18 @@
 
   </div>
   <div class="findmehere" id="findmehere">
+      <h1>Provozní doba</h1>
+      <p>Provozní doba dle telefonických objednávek.</p>
+  </div>
+  <div class="findmehere" id="findmehere">
     <h1>Kde nás najdete?</h1>
-    <div style="width: 100%"><iframe width="100%" height="300" src="https://maps.google.com/maps?width=100%&amp;height=300&amp;hl=en&amp;q=Velka%2012%2C%20Ostrava+(Sal%C3%B3n%20Lucie)&amp;ie=UTF8&amp;t=&amp;z=18&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"><a href="https://www.maps.ie/draw-radius-circle-map/">km radius map</a></iframe></div><br />
+    <div style="width: 100%"><iframe class="map" width="100%" height="300" src="https://maps.google.com/maps?width=100%&amp;height=300&amp;hl=en&amp;q=Velka%2012%2C%20Ostrava+(Sal%C3%B3n%20Lucie)&amp;ie=UTF8&amp;t=&amp;z=18&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"><a href="https://www.maps.ie/draw-radius-circle-map/">km radius map</a></iframe></div><br />
   </div>
   <div class="contact" id="contact">
     <h1>Kontakt</h1>
     @foreach ($stylists as $stylist)
       @if ($stylist->user->role === 1)
-        <img src="{{ asset('/images/stylists/') }}/{{$stylist->profile_photo_url}}" alt="Photo {{ $stylist->user->first_name .' '. $stylist->user->last_name }}" class="contact__image">
+{{--        <img src="{{ asset('/images/stylists/') }}/{{$stylist->profile_photo_url}}" alt="Photo {{ $stylist->user->first_name .' '. $stylist->user->last_name }}" class="contact__image">--}}
         <p>
           <strong>Majitelka</strong><br>
           <strong>{{ $stylist->user->first_name .' '. $stylist->user->last_name }}</strong><br>

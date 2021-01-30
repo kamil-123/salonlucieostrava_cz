@@ -30,7 +30,6 @@ Route::get('/', 'MainController@mainPage')->name('mainPage');
 Route::get('/saloon', 'MainController@saloon')->name('saloon');
 Route::post('/saloon', 'MainController@postSaloon')->name('postSaloon');
 Route::get('/schedule', 'MainController@showSchedule')->name('showSchedule');
-//Route::post('/schedule', 'MainController@showSchedule')->name('showSchedule');
 Route::post('/order', 'MainController@orderCreate')->name('orderCreate');
 
 // Routes Calendar

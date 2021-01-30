@@ -9997,6 +9997,23 @@ main {
   justify-items: center;
   z-index: 2;
 }
+@media (max-width: 1097px) {
+  .mainPage .mainbox {
+    width: 40%;
+  }
+}
+@media (max-width: 823px) {
+  .mainPage .mainbox {
+    width: 50%;
+  }
+}
+@media (max-width: 658px) {
+  .mainPage .mainbox {
+    width: 70%;
+    margin-left: 3em;
+    margin-bottom: 3em;
+  }
+}
 .mainPage .mainbox .linename {
   display: flex;
   flex-direction: row;
@@ -10005,18 +10022,40 @@ main {
 .mainPage .mainbox .linename__line {
   flex-grow: 1;
   background-color: white;
-  height: 4px;
+  height: 1px;
 }
 .mainPage .mainbox .linename__name {
   color: white;
+  font-size: 22px;
   padding-left: 1em;
   padding-right: 1em;
 }
+@media (max-width: 470px) {
+  .mainPage .mainbox .linename__name {
+    font-size: 20px;
+  }
+}
+@media (max-width: 376px) {
+  .mainPage .mainbox .linename__name {
+    font-size: 16px;
+  }
+}
 .mainPage .mainbox .salonname {
   font-size: 50px;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: "Libre Baskerville", serif;
   color: white;
   align-self: center;
+}
+@media (max-width: 470px) {
+  .mainPage .mainbox .salonname {
+    font-size: 40px;
+  }
+}
+@media (max-width: 376px) {
+  .mainPage .mainbox .salonname {
+    font-size: 32px;
+  }
 }
 .mainPage .mainbox .mainbutton {
   width: 150px;
