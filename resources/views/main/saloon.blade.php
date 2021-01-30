@@ -52,9 +52,10 @@
               <input type="hidden" name="stylist_id" value="{{ $stylist->id }}">
               <input type="submit" class="orderbutton" value="OBJEDNAT">
             @else
-              <strong>Online</strong> objednávání spustíme po covidu.
+              @if($stylist->id === 1)
+                <h4><strong>Online</strong> objednávání spustíme po <strong>Covidu.</strong></h4>
+              @endif
             @endif
-
           </form>
         </div>
       </div>
