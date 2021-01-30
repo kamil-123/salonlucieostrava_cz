@@ -17,7 +17,7 @@ class StylistController extends Controller
 
     public function edit($id){
         $stylist = Stylist::findOrFail($id);
-        
+
         return view('stylist/edit',compact('stylist'));
     }
 
@@ -39,7 +39,7 @@ class StylistController extends Controller
         $this->validate($request, [             //comment validation
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'phone'=> 'required|integer',
+            'phone'=> 'required|max:255',
             'email' => 'required|email',
             'password' => 'required|min:8',
             'photo' => 'required|image|max:500',
@@ -47,7 +47,7 @@ class StylistController extends Controller
             'service' => 'required|max:255',
             'introduction' => 'required|max:255',
             ]);
-        
+
         $photo = $request->file('photo');
         $photoname = $request->input('first_name') . time() . '.' . $photo->getClientOriginalExtension();
         $photo->move(public_path("/images/stylists"), $photoname);
@@ -60,7 +60,7 @@ class StylistController extends Controller
             'role' => '2',
             'password' => bcrypt($request->input('password'))
             ]);
-        
+
         $stylist = Stylist::create([
             'user_id' => $user->id,
             'profile_photo_url' => $photoname,
@@ -69,7 +69,7 @@ class StylistController extends Controller
             'introduction' => $request->input('introduction'),
         ]);
 
-        
+
         session()->flash('success_message', 'Stylist successfully added.');
         return redirect(action('StylistController@index'));
     }
@@ -78,7 +78,7 @@ class StylistController extends Controller
         $this->validate($request, [             //comment validation
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'phone'=> 'required|integer',
+            'phone'=> 'required|max:255',
             'email' => 'required|email',
             'password' => 'nullable|min:8',
             'photo' => 'nullable|image|max:500',
@@ -86,17 +86,17 @@ class StylistController extends Controller
             'service' => 'required|max:255',
             'introduction' => 'required|max:255',
             ]);
-        
+
         $stylist = Stylist::findOrFail($request->input('stylist_id'));
         $user = User::findOrFail($stylist->user_id);
-        
+
         if($request->file('photo') !== null){
             $photo = $request->file('photo');
             $photoname = $request->input('first_name') . time() . '.' . $photo->getClientOriginalExtension();
             $photo->move(public_path("/images/stylists"), $photoname);
             $stylist->profile_photo_url = $photoname;
         }
-        
+
         $stylist->job_title = $request->input('job');
         $stylist->service = $request->input('service');
         $stylist->introduction = $request->input('introduction');

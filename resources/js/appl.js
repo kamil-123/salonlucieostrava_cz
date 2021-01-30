@@ -5,7 +5,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+// require('./bootstrap');
 
 //window.Vue = require('vue');
 
@@ -40,24 +40,24 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const hname = document.querySelector('#hname');
     const hprice = document.querySelector('#hprice');
     const hduration = document.querySelector('#hduration');
-    
+
     iname.addEventListener('input',()=>{
       hname.value = iname.value;
       hprice.value = iprice.value;
       hduration.value = iduration.value;
     });
-    
+
     iprice.addEventListener('input',()=>{
       hname.value = iname.value;
       hprice.value = iprice.value;
       hduration.value = iduration.value;
-             
+
       });
     iduration.addEventListener('input',()=>{
       hname.value = iname.value;
       hprice.value = iprice.value;
       hduration.value = iduration.value;
-        
+
     });
   }
 });

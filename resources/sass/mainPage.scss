@@ -54,26 +54,52 @@ main{
     flex-direction: column;
     justify-items: center;
     z-index: 2;
+      @media (max-width: $breakpoint-lg) {
+          width: 40%;
+      }
+      @media (max-width: $breakpoint-md) {
+          width: 50%;
+      }
+      @media (max-width: $breakpoint-sm) {
+          width: 70%;
+          margin-left: 3em;
+          margin-bottom: 3em;
+      }
     .linename{
       display: flex;
       flex-direction: row;
-      align-items: center;;
+      align-items: center;
       &__line{
         flex-grow: 1;
         background-color: white;
-        height: 4px;
+        height: 1px;
+
       }
       &__name{
         color: white;
+        font-size: 22px;
         padding-left: 1em;
         padding-right: 1em;
+        @media (max-width: $breakpoint-xsm) {
+            font-size: 20px;
+        }
+        @media (max-width: $breakpoint-xxsm) {
+            font-size: 16px;
+        }
       }
     }
     .salonname{
       font-size: 50px;
-      font-weight: 600;
+      font-weight: 700;
+      font-family: 'Libre Baskerville', serif;
       color: white;
       align-self: center;
+      @media (max-width: $breakpoint-xsm) {
+          font-size: 40px;
+      }
+      @media (max-width: $breakpoint-xxsm) {
+          font-size: 32px;
+      }
     }
     .mainbutton{
       width: 150px;
@@ -93,7 +119,7 @@ main{
         color: white;
         border: 3px solid white;
       }
-      
+
     }
   }
 }
